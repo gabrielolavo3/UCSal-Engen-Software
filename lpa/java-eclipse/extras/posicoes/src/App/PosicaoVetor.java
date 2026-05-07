@@ -43,7 +43,7 @@ public class PosicaoVetor {
 		*/
 		
 		if (posicaoX < 0 || posicaoX > vetor.length) {
-			Syste
+			System.out.println("");
 		}
 	}
 }
