@@ -26,6 +26,7 @@ public class JogodaVelha {
 	}
 
 	public static boolean fazerJogada(int linha, int coluna, char jogador, char matriz[][]) {
+		// Se a linha e colunas estiverem dentro do limite, e a essa posição estiver vázia, muda para o simbolo do jogador 
 		if ((linha >= 0 && linha < 3) && (coluna >= 0 && coluna < 3) && matriz[linha][coluna] == ' ') {
 			matriz[linha][coluna] = jogador;
 			return true;
@@ -82,7 +83,8 @@ public class JogodaVelha {
 		int linha, coluna, jogadas = 0;
 		char jogadorAtual = 'X';
 		boolean ativarJogo = true;
-
+		
+		// Enquanto o jogoAtivo for true, o jogo esrá executado
 		while (ativarJogo) {
 			System.out.println("\nRodada " + (jogadas+1) + "\n");
 			imprimirArea(areaJogo);
@@ -102,7 +104,7 @@ public class JogodaVelha {
 				continue;
 			}
 
-			if (areaJogo[linha][coluna] != ' ') {
+			if (areaJogo[linha][coluna] != ' ') { // Se a posição de linha e coluna não forem vazias, significa que estão preenchidas
 				System.out.println("\nEssa posição já está ocupada. Escolha outra");
 				continue;
 			}
@@ -114,8 +116,7 @@ public class JogodaVelha {
 					imprimirArea(areaJogo);
 					ativarJogo = false;
 				} 
-				else if (jogadas == 9) { // Se passar por todas as rodadas, significa um empate
-					imprimirArea(areaJogo);
+				else if (jogadas == 9) { // Se passar por todas as rodadas, significa um empate					
 					System.out.println("\nFim de Jogo\n");
 					imprimirArea(areaJogo);
 					System.out.println("\nDeu velha! Houve um EMPATE");
