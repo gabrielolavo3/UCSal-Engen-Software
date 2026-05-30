@@ -1,0 +1,45 @@
+package App;
+import java.util.Scanner;
+
+public class JogoDaVelha {
+	
+	public static void leitura(char[][] tabuleiro) {
+		for (int i = 0; i < tabuleiro.length; i++) {
+			for (int j = 0; j < tabuleiro[0].length; j++) {
+				System.out.print("| " + tabuleiro[i][j] + "| ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public static char trocarJogador(char jogador) {
+		if (jogador == 'X') {
+			jogador = 'O';
+		}
+		else {
+			jogador = 'X';
+		}
+		
+		return jogador;
+	}
+	
+	public static void main(String[] args) {
+		char[][] jogo = {
+				{' ', ' ', ' '},
+				{' ', ' ', ' '},
+				{' ', ' ', ' '}
+		};
+		boolean jogoAtivo = true;
+		char jogador = 'X';
+		
+		jogador = trocarJogador(jogador);
+		System.out.println(jogador);
+		
+		//leitura(jogo);
+		
+		while (jogoAtivo) {
+			
+		}
+	}
+
+}

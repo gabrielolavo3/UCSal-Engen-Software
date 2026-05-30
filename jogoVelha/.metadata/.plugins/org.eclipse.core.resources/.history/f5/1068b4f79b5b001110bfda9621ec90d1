@@ -1,0 +1,117 @@
+package App;
+import java.util.Scanner;
+
+public class JogoDaVelha {		
+	public static void impressao(char[][] tabuleiro) {
+		for (int i = 0; i < tabuleiro.length; i++) {
+			for (int j = 0; j < tabuleiro[0].length; j++) {
+				System.out.print("|" + tabuleiro[i][j] + "|");
+			}
+			System.out.println();
+		}
+	}
+	
+	public static char trocarJogador(char jogador) {
+		if (jogador == 'X') {
+			jogador = 'O';
+		}
+		else {
+			jogador = 'X';
+		}
+		
+		return jogador;
+	}
+	
+	public static boolean jogadas(char jogador, char[][] tabuleiro, int linha, int coluna) {
+		
+		/* Se as linhas e colunas estiverem dentro do limite e a posição estiver vázia,
+		 * a posição recebe o simbolo do jogador 
+		*/
+		if ((linha >= 0 && linha < 3) && (coluna >= 0 && coluna < 3) && tabuleiro[linha][coluna] == ' ') {
+			tabuleiro[linha][coluna] = jogador;
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public static boolean vitoria (char[][] tabuleiro, char jogador) {
+		// vitória por linha
+		for (int i = 0; i < tabuleiro.length; i++) {
+			if (tabuleiro[i][0] == jogador && tabuleiro[i][1] == jogador && tabuleiro[i][2] == jogador) {
+				System.out.println("O jogador " + jogador + " venceu a partida");
+				return true;
+			}
+		}
+		
+		// vitória por coluna
+		for (int i = 0; i < tabuleiro[0].length; i++) {
+			if (tabuleiro[0][i] == jogador && tabuleiro[1][i] == jogador && tabuleiro[2][i] == jogador) {
+				System.out.println("O jogador " + jogador + " venceu a partida");
+				return true;
+			}
+		}
+		
+		// vitória por diagonal principal
+		for (int a = 0; a < tabuleiro.length; a++) {
+            if (tabuleiro[a][a] == jogador) {
+            	System.out.println("O jogador " + jogador + " venceu a partida");
+				return true;
+            }
+        }
+		
+		int k = tabuleiro[0].length - 1;
+        
+		// vitória por diagonal secundária
+        for (int a = 0; a < tabuleiro[0].length; a++) {
+        	if (tabuleiro[a][k] == jogador) {
+        		System.out.println("O jogador " + jogador + " venceu a partida");
+				return true;
+        	}            
+            k--;
+        }
+		
+		return false;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		char jogador = 'X';
+		boolean jogoAtivo = true;		
+		int linha = 0, coluna = 0, qtdRodadas = 0;
+		
+		char[][] jogo = {
+				{' ', ' ', ' '},
+				{' ', ' ', ' '},
+				{' ', ' ', ' '}
+		};
+					
+		while (jogoAtivo) {
+			impressao(jogo);
+			System.out.println("\nÉ a vez do Jogador " + jogador);
+			System.out.print("Escolha uma linha: ");
+			linha = scan.nextInt();
+			System.out.print("Escolha uma coluna: ");
+			coluna = scan.nextInt();
+			
+			if (jogadas(jogador, jogo, linha, coluna)) {
+				qtdRodadas++;
+				if (vitoria(jogo, jogador)) {
+					impressao(jogo);
+					jogoAtivo = false;
+				}
+				else if (qtdRodadas == 9) {
+					impressao(jogo);
+					System.out.println("Houve um empate! DEU VELHA");
+					jogoAtivo = false;
+				}
+				else {
+					jogador = trocarJogador(jogador);
+				}
+			}
+		}
+	}
+
+}

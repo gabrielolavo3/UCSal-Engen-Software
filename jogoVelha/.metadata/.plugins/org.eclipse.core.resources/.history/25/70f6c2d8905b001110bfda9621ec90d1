@@ -1,0 +1,64 @@
+package App;
+import java.util.Scanner;
+
+public class JogoDaVelha {
+	
+	public static void leitura(char[][] tabuleiro) {
+		for (int i = 0; i < tabuleiro.length; i++) {
+			for (int j = 0; j < tabuleiro[0].length; j++) {
+				System.out.print("| " + tabuleiro[i][j] + "| ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public static char trocarJogador(char jogador) {
+		if (jogador == 'X') {
+			jogador = 'O';
+		}
+		else {
+			jogador = 'X';
+		}
+		
+		return jogador;
+	}
+	
+	public static boolean jogadas(char jogador, char[][] tabuleiro, int linha, int coluna) {
+		
+		if ((linha >= 0 && linha < 3) && (coluna >= 0 && coluna < 3) && tabuleiro[linha][coluna] == ' ') {
+			tabuleiro[linha][coluna] = jogador;
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		char jogador = 'X';
+		boolean jogoAtivo = true;		
+		int linha = 0, coluna = 0;
+		
+		char[][] jogo = {
+				{' ', ' ', ' '},
+				{' ', ' ', ' '},
+				{' ', ' ', ' '}
+		};
+		
+		
+		
+		while (jogoAtivo) {
+			System.out.println("É a vez do Jogador " + jogador);
+			System.out.print("Esolha uma linha: ");
+			linha = scan.nextInt();
+			System.out.print("Escolha uma coluna: ");
+			coluna = scan.nextInt();
+			
+			jogadas(jogador, jogo, linha, coluna);
+			leitura(jogo);
+		}
+	}
+
+}
