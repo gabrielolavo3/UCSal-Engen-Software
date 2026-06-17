@@ -5,7 +5,7 @@ public class JogoDaVelha {
 	public static void impressao(char[][] tabuleiro) {
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[0].length; j++) {
-				System.out.print("|" + tabuleiro[i][j] + "|");
+				System.out.print("|" + tabuleiro[i][j] + "|"); //Imprimi conteúdo da matriz
 			}
 			System.out.println();
 		}
@@ -58,8 +58,6 @@ public class JogoDaVelha {
 			System.out.println("O jogador " + jogador + " venceu a partida!");
 			return true;
 		}
-		
-		// int k = tabuleiro[0].length - 1;
         
 		// vitória por diagonal secundária
 		if (tabuleiro[0][2] == jogador && tabuleiro[1][1] == jogador && tabuleiro[2][0] == jogador) {
@@ -82,7 +80,7 @@ public class JogoDaVelha {
 				{' ', ' ', ' '},
 				{' ', ' ', ' '}
 		};
-					
+		//Laço infinito, é o começo do laço			
 		while (jogoAtivo) {
 			impressao(jogo);
 			System.out.println("\nÉ a vez do Jogador " + jogador);
@@ -90,31 +88,33 @@ public class JogoDaVelha {
 			linha = scan.nextInt();
 			System.out.print("Escolha uma coluna: ");
 			coluna = scan.nextInt();
-			
+
+			//Verifica se o número da linha ou coluna digitada estar dentro do limite da matriz do jogo
 			if ((linha < 0 || linha > 2) || (coluna < 0 || coluna > 2)) {
 				System.out.println("Tente de novo");
-				continue;
+				continue; //Ignora a próxima instrução
 			}
-			
+
+			//Verifica se o espaço escolhido está preenchido. Se sim, ignora a próxima instrução e volta para o começo do loop
 			if (jogo[linha][coluna] != ' ') {
 				System.out.println("\nEssa posição está preeenchida");
 				continue;
 			}
 			
 			if (jogadas(jogador, jogo, linha, coluna)) {
-				qtdRodadas++;
+				qtdRodadas++;//Acumula a quantidade de rodadas
 				
 				if (vitoria(jogo, jogador)) {
 					impressao(jogo);
-					jogoAtivo = false;
+					jogoAtivo = false; //Em caso de vitória, interrompe o loop, assim, encerrando o jogo
 				}
-				else if (qtdRodadas == 9) {
+				else if (qtdRodadas == 9) { //Verificar se houve 9 rodadas para aplicar um empate
 					impressao(jogo);
 					System.out.println("Houve um empate! DEU VELHA");
 					jogoAtivo = false;
 				}
 				else {
-					jogador = trocarJogador(jogador);
+					jogador = trocarJogador(jogador); //Caso não haja vitória nem empate, faz a troca do jogador
 				}
 			}
 		}
